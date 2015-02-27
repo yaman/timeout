@@ -39,7 +39,8 @@ func ListenAndAnswerWithEmptyString() {
 		if err != nil {
 			fmt.Println("Something is wrong with listener : ", err)
 		}
-		fmt.Fprintf(conn, "")
+		fmt.Println("Writing to connection")
+		fmt.Fprintf(conn, " ")
 	}
 }
 
@@ -65,7 +66,7 @@ func ListenAndAnswerWithEmptyStringAfterClientSendsData() {
 
 			}
 
-			fmt.Fprintf(connection, "sdasd")
+			fmt.Fprintf(connection, " ")
 			connection.Close()
 		}(conn)
 
