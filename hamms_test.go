@@ -11,6 +11,18 @@ import (
 
 func TestListenTcp(t *testing.T) {
 
+	Convey("Given hamms created with port :5000", t, func() {
+		hamms := Hamms{":5000"}
+		
+		Convey("When hamms.Listen() called",func(){
+			listener := hamms.Listen()
+
+			Convey("Listener Should not be null",func(){
+				So(listener,ShouldNotBeNil)
+			})
+		})
+	})
+
 	Convey("Given connected to :5501 port", t, func() {
 		go ListenAndDoNotAnswer()
 
@@ -63,4 +75,19 @@ func TestListenTcp(t *testing.T) {
 		})
 
 	})
+	Convey("Given connected to :5504 port", t, func() {
+		go ListenAndAnswerWithMalformedStringImmediately()
+		time.Sleep(1 * time.Second)
+		conn, err := net.Dial("tcp", "localhost:5504")
+		if err != nil {
+			fmt.Println("error is ", err)
+		}
+		Convey("It should write back malformed response immediately", func() {
+			tmp := make([]byte, 64)
+			_, err = conn.Read(tmp)
+			responseString := string(tmp[:])
+			So(responseString, ShouldContainSubstring, "foo bar")
+		})
+	})
+
 }
