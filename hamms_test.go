@@ -35,17 +35,32 @@ func TestListenTcp(t *testing.T) {
 
 	Convey("Given connected to :5502 port", t, func() {
 		go ListenAndAnswerWithEmptyString()
-		Convey("When waited for 1 seconds", func() {
-			time.Sleep(1 * time.Second)
-			Convey("It should write back space immediately", func() {
-				conn, err := net.Dial("tcp", "localhost:5502")
-				if err != nil {
-					fmt.Println("error is ", err)
-				}
+		time.Sleep(1 * time.Second)
+		conn, err := net.Dial("tcp", "localhost:5502")
+		if err != nil {
+			fmt.Println("error is ", err)
+		}
+		Convey("It should write back space immediately", func() {
+			tmp := make([]byte, 64)
+			_, err = conn.Read(tmp)
+			So(tmp[0], ShouldEqual, 32)
+		})
+	})
+	Convey("Given connected to :5503 port", t, func() {
+		go ListenAndAnswerWithEmptyStringAfterClientSendsData()
+		time.Sleep(3 * time.Second)
+		conn, err := net.Dial("tcp", "localhost:5503")
+		if err != nil {
+			fmt.Println("error is ", err)
+		}
+		Convey("when sent some random data", func() {
+			fmt.Fprintf(conn, "RANDOM_DATA")
+			Convey("It should write back space", func() {
 				tmp := make([]byte, 64)
 				_, err = conn.Read(tmp)
 				So(tmp[0], ShouldEqual, 32)
 			})
 		})
+
 	})
 }
