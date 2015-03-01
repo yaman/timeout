@@ -13,12 +13,18 @@ func TestListenTcp(t *testing.T) {
 
 	Convey("Given hamms created with port :5000", t, func() {
 		hamms := Hamms{":5000"}
-		
-		Convey("When hamms.Listen() called",func(){
+
+		Convey("When hamms.Listen() called", func() {
 			listener := hamms.Listen()
 
-			Convey("Listener Should not be null",func(){
-				So(listener,ShouldNotBeNil)
+			Convey("Listener Should not be null", func() {
+				So(listener, ShouldNotBeNil)
+			})
+		})
+
+		Convey("When hamms.Listen() called second time", func() {
+			Convey("Listen Should panic", func() {
+				So(hamms.Listen(), ShouldPanic)
 			})
 		})
 	})

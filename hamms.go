@@ -13,7 +13,7 @@ type Hamms struct {
 func (hamms *Hamms) Listen() net.Listener {
 	listener, err := net.Listen("tcp", hamms.Port)
 	if err != nil {
-		fmt.Println("An Error Occured while trying to open port from ", hamms.Port, err)
+		panic("An Error Occured while trying to open port from " + hamms.Port)
 	}
 	fmt.Println("Listening from ", hamms.Port)
 	return listener
