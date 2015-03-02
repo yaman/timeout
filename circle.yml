@@ -1,9 +1,0 @@
-deployment:
-  staging:
-    branch: master
-    heroku:
-      appname: go-hamms
-
-general:
-  artifacts:
-    - "go-hamms" 
