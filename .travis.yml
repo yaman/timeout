@@ -9,9 +9,15 @@ before_install:
 script:
 - "$HOME/gopath/bin/goveralls -service=travis-ci"
 deploy:
-  provider: heroku
-  api_key:
-    secure: fuSD2IWK1n5XzhpcteCr+f53mkK+olVJF75myVoVAn1fVvm2Su+0jAIODB/Dzzmp8pF6ReCBIiweGXebunLcBSclU7YF0qDJH7hamAC9IxYH6bc7GzByskiFKFm1+dHK6r+4/kh31Lo6GwaY+KgQE0GkuOwH40c2+zuQUEmZyHM=
-  app: go-hamms
-  on:
-    repo: abdulkadiryaman/go-hamms
+    - provider: releases
+      api_key:
+        secure: QkbB+n1btHEKcOPE0lSbacntlFLK8ng5pAKQK8xd88V6be5e+jxO+OhzBrs7aTArhrRwz9Y/1zIdH9LtqPcjYaA6V/ZeztnMvNoqFGTP6avX0apfyR92jwplVH6DP7WLS+Ai6wf432+xT0Vww4S0birFILoA6XGDCEoTGYoctgQ=
+      file: bin/go-hamms
+      on:
+        repo: abdulkadiryaman/go-hamms
+    - provider: heroku
+      api_key:
+        secure: fuSD2IWK1n5XzhpcteCr+f53mkK+olVJF75myVoVAn1fVvm2Su+0jAIODB/Dzzmp8pF6ReCBIiweGXebunLcBSclU7YF0qDJH7hamAC9IxYH6bc7GzByskiFKFm1+dHK6r+4/kh31Lo6GwaY+KgQE0GkuOwH40c2+zuQUEmZyHM=
+      app: go-hamms
+      on:
+        repo: abdulkadiryaman/go-hamms
