@@ -22,11 +22,6 @@ func TestListenTcp(t *testing.T) {
 			})
 		})
 
-		Convey("When hamms.Listen() called second time", func() {
-			Convey("Listen Should panic", func() {
-				So(hamms.Listen(), ShouldPanic)
-			})
-		})
 	})
 
 	Convey("Given connected to :5501 port", t, func() {
