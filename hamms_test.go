@@ -90,5 +90,23 @@ func TestListenTcp(t *testing.T) {
 			So(responseString, ShouldContainSubstring, "foo bar")
 		})
 	})
+	Convey("Given connected to :5505 port", t, func() {
+		go ListenAndAnswerWithMalformedStringAfterClientSendsData()
+		time.Sleep(3 * time.Second)
+		conn, err := net.Dial("tcp", "localhost:5505")
+		if err != nil {
+			fmt.Println("error is ", err)
+		}
+		Convey("when sent some random data", func() {
+			fmt.Fprintf(conn, "RANDOM_DATA")
+			Convey("It should write back space", func() {
+				tmp := make([]byte, 64)
+				_, err = conn.Read(tmp)
+				responseString := string(tmp[:])
+				So(responseString, ShouldContainSubstring, "foo bar")
+			})
+		})
+
+	})
 
 }

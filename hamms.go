@@ -74,6 +74,23 @@ func ListenAndAnswerWithEmptyStringAfterClientSendsData() {
 	}
 }
 
+func ListenAndAnswerWithMalformedStringAfterClientSendsData() {
+	hamms := Hamms{":5505"}
+	ln := hamms.Listen()
+
+	for {
+		conn, _ := ln.Accept()
+		defer conn.Close()
+		fmt.Println("Accepted a connection from :5505")
+
+		tmp := make([]byte, 256)
+		go func(connection net.Conn) {
+			_, _ = connection.Read(tmp)
+			fmt.Fprintf(connection, "foo bar")
+			connection.Close()
+		}(conn)
+	}
+}
 func main() {
 	fmt.Println("Running Go Hamms.....")
 	go ListenAndDoNotAnswer()
