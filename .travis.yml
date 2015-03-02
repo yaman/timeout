@@ -1,9 +1,17 @@
 language: go
 go:
-  - 1.4.2
+- 1.4.2
 before_install:
-  - go get github.com/axw/gocov/gocov
-  - go get github.com/mattn/goveralls
-  - if ! go get code.google.com/p/go.tools/cmd/cover; then go get golang.org/x/tools/cmd/cover; fi
+- go get github.com/axw/gocov/gocov
+- go get github.com/mattn/goveralls
+- if ! go get code.google.com/p/go.tools/cmd/cover; then go get golang.org/x/tools/cmd/cover;
+  fi
 script:
-    - $HOME/gopath/bin/goveralls -service=travis-ci
+- "$HOME/gopath/bin/goveralls -service=travis-ci"
+deploy:
+  provider: heroku
+  api_key:
+    secure: fuSD2IWK1n5XzhpcteCr+f53mkK+olVJF75myVoVAn1fVvm2Su+0jAIODB/Dzzmp8pF6ReCBIiweGXebunLcBSclU7YF0qDJH7hamAC9IxYH6bc7GzByskiFKFm1+dHK6r+4/kh31Lo6GwaY+KgQE0GkuOwH40c2+zuQUEmZyHM=
+  app: go-hamms
+  on:
+    repo: abdulkadiryaman/go-hamms
