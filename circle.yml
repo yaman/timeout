@@ -4,6 +4,6 @@ deployment:
     heroku:
       appname: go-hamms
 
-machine:
-  environment:
-    CIRCLE_ARTIFACTS: ./
+general:
+  artifacts:
+    - "go-hamms" 
