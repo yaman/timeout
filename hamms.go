@@ -91,6 +91,23 @@ func ListenAndAnswerWithMalformedStringAfterClientSendsData() {
 		}(conn)
 	}
 }
+
+func ListenAndAnswerEvery5Seconds() {
+	hamms := Hamms{":5506"}
+
+	ln := hamms.Listen()
+	conn, _ := ln.Accept()
+	defer conn.Close()
+
+	for {
+		fmt.Println("Accepted a connection from :5506")
+		time.Sleep(5 * time.Second)
+		go func(connection net.Conn) {
+			fmt.Fprintf(connection, " ")
+		}(conn)
+	}
+}
+
 func main() {
 	fmt.Println("Running Go Hamms.....")
 	go ListenAndDoNotAnswer()

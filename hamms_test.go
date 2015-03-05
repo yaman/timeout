@@ -109,4 +109,29 @@ func TestListenTcp(t *testing.T) {
 
 	})
 
+	Convey("Given connected to :5506 port", t, func() {
+		go ListenAndAnswerEvery5Seconds()
+		time.Sleep(3 * time.Second)
+		conn, err := net.Dial("tcp", "localhost:5506")
+		if err != nil {
+			fmt.Println("error is ", err)
+		}
+
+		Convey("It should write back one byte data every 5 seconds", func() {
+			tmp := make([]byte, 64)
+			maxAssertionCount := 3
+			for i := 0; i < maxAssertionCount; i++ {
+				t0 := time.Now()
+				_, err = conn.Read(tmp)
+				responseString := string(tmp[:])
+				t1 := time.Now()
+				actualTimeElapsed := t1.Sub(t0).Seconds()
+
+				So(actualTimeElapsed, ShouldBeBetween, 4.5, 5.5)
+				So(responseString, ShouldContainSubstring, " ")
+			}
+		})
+
+	})
+
 }
