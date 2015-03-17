@@ -134,4 +134,28 @@ func TestListenTcp(t *testing.T) {
 
 	})
 
+	Convey("Given connected to :5507 port", t, func() {
+	    go ListenAndAnswerEvery30Seconds()	
+		time.Sleep(3 * time.Second)
+		conn, err := net.Dial("tcp", "localhost:5507")
+		if err != nil {
+			fmt.Println("error is ", err)
+		}
+
+		Convey("It should write back one byte data every 30 seconds", func() {
+			tmp := make([]byte, 64)
+			maxAssertionCount := 1
+			for i := 0; i < maxAssertionCount; i++ {
+				t0 := time.Now()
+				_, err = conn.Read(tmp)
+				responseString := string(tmp[:])
+				t1 := time.Now()
+				actualTimeElapsed := t1.Sub(t0).Seconds()
+
+				So(actualTimeElapsed, ShouldBeBetween, 29, 31)
+				So(responseString, ShouldContainSubstring, " ")
+			}
+		})
+
+	})
 }

@@ -108,12 +108,31 @@ func ListenAndAnswerEvery5Seconds() {
 	}
 }
 
+func ListenAndAnswerEvery30Seconds() {
+	hamms := Hamms{":5507"}
+
+	ln := hamms.Listen()
+	conn, _ := ln.Accept()
+	defer conn.Close()
+
+	for {
+		fmt.Println("Accepted a conection from :5507")
+		time.Sleep(30 * time.Second)
+		go func(connection net.Conn) {
+			fmt.Fprintf(connection, " ")
+		}(conn)
+
+	}
+
+}
 func main() {
 	fmt.Println("Running Go Hamms.....")
 	go ListenAndDoNotAnswer()
 	go ListenAndAnswerWithEmptyString()
 	go ListenAndAnswerWithEmptyStringAfterClientSendsData()
 	go ListenAndAnswerWithMalformedStringImmediately()
+	go ListenAndAnswerWithMalformedStringAfterClientSendsData()
+	go ListenAndAnswerEvery5Seconds()
 
 	for {
 		time.Sleep(10 * time.Second)
