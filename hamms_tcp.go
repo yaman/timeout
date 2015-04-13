@@ -7,7 +7,7 @@ import (
 )
 
 func ListenAndDoNotAnswer() {
-	hamms := Hamms{":5501"}
+	hamms := Hamms{Port: ":5501"}
 	listener := hamms.Listen()
 
 	for {
@@ -18,7 +18,7 @@ func ListenAndDoNotAnswer() {
 }
 
 func ListenAndAnswerWithEmptyString() {
-	hamms := Hamms{":5502"}
+	hamms := Hamms{Port: ":5502"}
 	ln := hamms.Listen()
 
 	for {
@@ -31,7 +31,7 @@ func ListenAndAnswerWithEmptyString() {
 }
 
 func ListenAndAnswerWithMalformedStringImmediately() {
-	hamms := Hamms{":5504"}
+	hamms := Hamms{Port: ":5504"}
 	ln := hamms.Listen()
 
 	for {
@@ -44,7 +44,7 @@ func ListenAndAnswerWithMalformedStringImmediately() {
 }
 
 func ListenAndAnswerWithEmptyStringAfterClientSendsData() {
-	hamms := Hamms{":5503"}
+	hamms := Hamms{Port: ":5503"}
 	ln := hamms.Listen()
 
 	for {
@@ -62,7 +62,7 @@ func ListenAndAnswerWithEmptyStringAfterClientSendsData() {
 }
 
 func ListenAndAnswerWithMalformedStringAfterClientSendsData() {
-	hamms := Hamms{":5505"}
+	hamms := Hamms{Port: ":5505"}
 	ln := hamms.Listen()
 
 	for {
@@ -80,7 +80,7 @@ func ListenAndAnswerWithMalformedStringAfterClientSendsData() {
 }
 
 func ListenAndAnswerEvery5Seconds() {
-	hamms := Hamms{":5506"}
+	hamms := Hamms{Port: ":5506"}
 
 	ln := hamms.Listen()
 	conn, _ := ln.Accept()
@@ -96,7 +96,7 @@ func ListenAndAnswerEvery5Seconds() {
 }
 
 func ListenAndAnswerEvery30Seconds() {
-	hamms := Hamms{":5507"}
+	hamms := Hamms{Port: ":5507"}
 
 	ln := hamms.Listen()
 	conn, _ := ln.Accept()

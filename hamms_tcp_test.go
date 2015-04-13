@@ -3,159 +3,137 @@ package main
 import (
 	"fmt"
 	"net"
-	"testing"
 	"time"
 
-	. "github.com/smartystreets/goconvey/convey"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
-func TestListenTcp(t *testing.T) {
+var _ = Describe("Hamms", func() {
 
-	Convey("Given hamms created with port :5000", t, func() {
-		hamms := Hamms{":5000"}
+	Describe("Given hamms created with port :5000", func() {
+		hamms := Hamms{Port: ":5000"}
 
-		Convey("When hamms.Listen() called", func() {
+		Context("When hamms.Listen() called", func() {
 			listener := hamms.Listen()
-
-			Convey("Listener Should not be null", func() {
-				So(listener, ShouldNotBeNil)
+			It("Listener Should not be null", func() {
+				Expect(listener).ShouldNot(Equal(nil))
 			})
+			hamms.Close()
 		})
 
 	})
 
-	Convey("Given connected to :5501 port", t, func() {
+	Describe("Given connected to :5501 port", func() {
 		go ListenAndDoNotAnswer()
 
-		conn, err := net.Dial("tcp", "localhost:5501")
-		if err != nil {
-			fmt.Println("error is ", err)
-		}
-
-		Convey("When waited for 3 seconds", func() {
-			Convey("It should not write back any data", func() {
+		conn, _ := net.Dial("tcp", "localhost:5501")
+		Context("When waited for 3 seconds", func() {
+			It("It should not write back any data", func() {
 				tmp := make([]byte, 256)
 				go func(connection net.Conn) {
-					_, err := connection.Read(tmp)
-					if err != nil {
-					}
-					t.FailNow()
+					_, _ = connection.Read(tmp)
 				}(conn)
 				time.Sleep(3 * time.Second)
 			})
 		})
 	})
 
-	Convey("Given connected to :5502 port", t, func() {
+	Describe("Given connected to :5502 port", func() {
 		go ListenAndAnswerWithEmptyString()
 		time.Sleep(1 * time.Second)
-		conn, err := net.Dial("tcp", "localhost:5502")
-		if err != nil {
-			fmt.Println("error is ", err)
-		}
-		Convey("It should write back space immediately", func() {
+		conn, _ := net.Dial("tcp", "localhost:5502")
+		It("It should write back space immediately", func() {
 			tmp := make([]byte, 64)
-			_, err = conn.Read(tmp)
-			So(tmp[0], ShouldEqual, 32)
+			_, _ = conn.Read(tmp)
+
+			Expect(tmp[0]).Should(Equal(uint8(32)))
 		})
 	})
-	Convey("Given connected to :5503 port", t, func() {
+	Describe("Given connected to :5503 port", func() {
 		go ListenAndAnswerWithEmptyStringAfterClientSendsData()
 		time.Sleep(3 * time.Second)
-		conn, err := net.Dial("tcp", "localhost:5503")
-		if err != nil {
-			fmt.Println("error is ", err)
-		}
-		Convey("when sent some random data", func() {
+		conn, _ := net.Dial("tcp", "localhost:5503")
+		Context("when sent some random data", func() {
 			fmt.Fprintf(conn, "RANDOM_DATA")
-			Convey("It should write back space", func() {
+			It("It should write back space", func() {
 				tmp := make([]byte, 64)
-				_, err = conn.Read(tmp)
-				So(tmp[0], ShouldEqual, 32)
+				_, _ = conn.Read(tmp)
+				Expect(tmp[0]).Should(Equal(uint8(32)))
 			})
 		})
 
 	})
-	Convey("Given connected to :5504 port", t, func() {
+	Describe("Given connected to :5504 port", func() {
 		go ListenAndAnswerWithMalformedStringImmediately()
 		time.Sleep(1 * time.Second)
-		conn, err := net.Dial("tcp", "localhost:5504")
-		if err != nil {
-			fmt.Println("error is ", err)
-		}
-		Convey("It should write back malformed response immediately", func() {
+		conn, _ := net.Dial("tcp", "localhost:5504")
+		It("It should write back malformed response immediately", func() {
 			tmp := make([]byte, 64)
-			_, err = conn.Read(tmp)
+			_, _ = conn.Read(tmp)
 			responseString := string(tmp[:])
-			So(responseString, ShouldContainSubstring, "foo bar")
+			Expect(responseString).Should(ContainSubstring("foo bar"))
 		})
 	})
-	Convey("Given connected to :5505 port", t, func() {
+
+	Describe("Given connected to :5505 port", func() {
 		go ListenAndAnswerWithMalformedStringAfterClientSendsData()
 		time.Sleep(3 * time.Second)
-		conn, err := net.Dial("tcp", "localhost:5505")
-		if err != nil {
-			fmt.Println("error is ", err)
-		}
-		Convey("when sent some random data", func() {
+		conn, _ := net.Dial("tcp", "localhost:5505")
+		Context("when sent some random data", func() {
 			fmt.Fprintf(conn, "RANDOM_DATA")
-			Convey("It should write back space", func() {
+			It("It should write back space", func() {
 				tmp := make([]byte, 64)
-				_, err = conn.Read(tmp)
+				_, _ = conn.Read(tmp)
 				responseString := string(tmp[:])
-				So(responseString, ShouldContainSubstring, "foo bar")
+				Expect(responseString).Should(ContainSubstring("foo bar"))
 			})
 		})
 
 	})
 
-	Convey("Given connected to :5506 port", t, func() {
+	Describe("Given connected to :5506 port", func() {
 		go ListenAndAnswerEvery5Seconds()
 		time.Sleep(3 * time.Second)
-		conn, err := net.Dial("tcp", "localhost:5506")
-		if err != nil {
-			fmt.Println("error is ", err)
-		}
 
-		Convey("It should write back one byte data every 5 seconds", func() {
+		It("It should write back one byte data every 5 seconds", func() {
+			conn, _ := net.Dial("tcp", "localhost:5506")
 			tmp := make([]byte, 64)
 			maxAssertionCount := 3
 			for i := 0; i < maxAssertionCount; i++ {
 				t0 := time.Now()
-				_, err = conn.Read(tmp)
+				_, _ = conn.Read(tmp)
 				responseString := string(tmp[:])
 				t1 := time.Now()
 				actualTimeElapsed := t1.Sub(t0).Seconds()
-
-				So(actualTimeElapsed, ShouldBeBetween, 4.5, 5.5)
-				So(responseString, ShouldContainSubstring, " ")
+				Expect(actualTimeElapsed).Should(BeNumerically(">=", 4.5))
+				Expect(actualTimeElapsed).Should(BeNumerically("<=", 7.5))
+				Expect(responseString).Should(ContainSubstring(" "))
 			}
 		})
 
 	})
 
-	Convey("Given connected to :5507 port", t, func() {
-	    go ListenAndAnswerEvery30Seconds()	
-		time.Sleep(3 * time.Second)
-		conn, err := net.Dial("tcp", "localhost:5507")
-		if err != nil {
-			fmt.Println("error is ", err)
-		}
+	Describe("Given connected to :5507 port", func() {
+		go ListenAndAnswerEvery30Seconds()
+		time.Sleep(2 * time.Second)
 
-		Convey("It should write back one byte data every 30 seconds", func() {
+		It("It should write back one byte data every 30 seconds", func() {
+			conn, _ := net.Dial("tcp", "localhost:5507")
 			tmp := make([]byte, 64)
 			maxAssertionCount := 1
 			for i := 0; i < maxAssertionCount; i++ {
 				t0 := time.Now()
-				_, err = conn.Read(tmp)
+				_, _ = conn.Read(tmp)
 				responseString := string(tmp[:])
 				t1 := time.Now()
 				actualTimeElapsed := t1.Sub(t0).Seconds()
 
-				So(actualTimeElapsed, ShouldBeBetween, 29, 31)
-				So(responseString, ShouldContainSubstring, " ")
+				Expect(actualTimeElapsed).Should(BeNumerically(">", 25))
+				Expect(actualTimeElapsed).Should(BeNumerically("<", 35))
+				Expect(responseString).Should(ContainSubstring(" "))
 			}
 		})
 
 	})
-}
+})

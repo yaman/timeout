@@ -7,7 +7,8 @@ import (
 )
 
 type Hamms struct {
-	Port string
+	Port     string
+	listener net.Listener
 }
 
 func (hamms *Hamms) Listen() net.Listener {
@@ -15,8 +16,12 @@ func (hamms *Hamms) Listen() net.Listener {
 	if err != nil {
 		panic("An Error Occured while trying to open port: " + hamms.Port)
 	}
-	fmt.Println("Listening from ", hamms.Port)
+	hamms.listener = listener
 	return listener
+}
+
+func (hamms *Hamms) Close() error {
+	return hamms.listener.Close()
 }
 
 func main() {
@@ -29,6 +34,7 @@ func main() {
 	go ListenAndAnswerWithMalformedStringAfterClientSendsData()
 	go ListenAndAnswerEvery5Seconds()
 	go ListenAndAnswerEvery30Seconds()
+	go SleepFor()
 
 	for {
 		time.Sleep(10 * time.Second)
