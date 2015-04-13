@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"net/http"
 
 	mux "github.com/gorilla/mux"
@@ -17,6 +16,5 @@ func SleepFor() {
 
 	http.Handle("/", rtr)
 
-	log.Println("Listening...")
 	http.ListenAndServe(":5508", nil)
 }
