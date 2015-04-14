@@ -12,7 +12,7 @@ DONE - 5506 - The client accepts the request, and sends back one byte every 5 se
 
 DONE - 5507 - The client accepts the request, and sends back one byte every 30 seconds
 
-5508 - Send a request to localhost:5508/sleep/<float> to sleep for float number of seconds. If no value is provided, sleep for 5 seconds.
+DONE - 5508 - Send a request to localhost:5508/sleep/<float> to sleep for float number of seconds. If no value is provided, sleep for 5 seconds.
 
 5509 - Send a request to localhost:5509/status/<int> to return a response with HTTP status code status. If no value is provided, return status code 200.
 

@@ -9,7 +9,7 @@ import (
 )
 
 var _ = Describe("Hamms", func() {
-	go SleepFor()
+	go StartRouter()
 	time.Sleep(1 * time.Second)
 	Describe("SleepFor", func() {
 		Context("Http request sent to /sleep", func() {

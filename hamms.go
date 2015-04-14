@@ -34,7 +34,7 @@ func main() {
 	go ListenAndAnswerWithMalformedStringAfterClientSendsData()
 	go ListenAndAnswerEvery5Seconds()
 	go ListenAndAnswerEvery30Seconds()
-	go SleepFor()
+	go StartRouter()
 
 	for {
 		time.Sleep(10 * time.Second)
