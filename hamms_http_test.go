@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -26,9 +25,10 @@ var _ = Describe("Hamms", func() {
 				start := time.Now()
 				resp, _ := http.Get("http://localhost:5508/sleep/5")
 				defer resp.Body.Close()
-				elapsed := time.Since(start)
+				elapsed := time.Since(start).Seconds()
 
-				fmt.Println(elapsed)
+				Expect(elapsed).Should(BeNumerically(">=", 4.5))
+				Expect(elapsed).Should(BeNumerically("<=", 5.5))
 
 			})
 
