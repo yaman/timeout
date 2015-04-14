@@ -92,7 +92,7 @@ var _ = Describe("Hamms", func() {
 
 	})
 
-	XDescribe("Given connected to :5506 port", func() {
+	Describe("Given connected to :5506 port", func() {
 		go ListenAndAnswerEvery5Seconds()
 		time.Sleep(3 * time.Second)
 
@@ -114,7 +114,7 @@ var _ = Describe("Hamms", func() {
 
 	})
 
-	XDescribe("Given connected to :5507 port", func() {
+	Describe("Given connected to :5507 port", func() {
 		go ListenAndAnswerEvery30Seconds()
 		time.Sleep(2 * time.Second)
 

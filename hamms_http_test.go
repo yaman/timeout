@@ -11,6 +11,7 @@ import (
 var _ = Describe("Hamms", func() {
 	go StartRouter()
 	time.Sleep(1 * time.Second)
+
 	Describe("SleepFor", func() {
 		Context("Http request sent to /sleep", func() {
 			It("Should not be nil", func() {
@@ -35,13 +36,32 @@ var _ = Describe("Hamms", func() {
 		})
 
 	})
+
 	Describe("ReturnStatus", func() {
-		Context("Http request sent to /status", func() {
+		Context("Http request sent to /status/400", func() {
 			It("Should respond with the status code 400", func() {
 				resp, _ := http.Get("http://localhost:5508/status/400")
 				defer resp.Body.Close()
 
 				Expect(resp.StatusCode).Should(Equal(400))
+			})
+		})
+
+		Context("Http request sent to /status/500", func() {
+			It("Should respond with the status code 500", func() {
+				resp, _ := http.Get("http://localhost:5508/status/500")
+				defer resp.Body.Close()
+
+				Expect(resp.StatusCode).Should(Equal(500))
+			})
+		})
+
+		Context("Http request sent to /status", func() {
+			It("Should respond with the status code 200", func() {
+				resp, _ := http.Get("http://localhost:5508/status")
+				defer resp.Body.Close()
+
+				Expect(resp.StatusCode).Should(Equal(200))
 			})
 		})
 	})
