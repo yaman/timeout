@@ -26,7 +26,7 @@ var _ = Describe("Hamms", func() {
 
 	Describe("Given connected to :5501 port", func() {
 		go ListenAndDoNotAnswer()
-
+		time.Sleep(1 * time.Second)
 		conn, _ := net.Dial("tcp", "localhost:5501")
 		Context("When waited for 3 seconds", func() {
 			It("It should not write back any data", func() {
