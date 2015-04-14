@@ -35,4 +35,14 @@ var _ = Describe("Hamms", func() {
 		})
 
 	})
+	Describe("ReturnStatus", func() {
+		Context("Http request sent to /status", func() {
+			It("Should respond with the status code 400", func() {
+				resp, _ := http.Get("http://localhost:5508/status/400")
+				defer resp.Body.Close()
+
+				Expect(resp.StatusCode).Should(Equal(400))
+			})
+		})
+	})
 })
