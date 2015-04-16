@@ -9,8 +9,9 @@ before_install:
   fi
 script:
 - "$HOME/gopath/bin/ginkgo -r -cover"
-- "$HOME/gopath/bin/goveralls -coverprofile=tcp/tcp.coverprofile -service=travis-ci"
-- "$HOME/gopath/bin/goveralls -coverprofile=http/http.coverprofile -service=travis-ci"
+- "cat tcp/tcp.coverprofile > hamms.coverprofile"
+- "cat http/http.coverprofile >> hamms.coverprofile"
+- "$HOME/gopath/bin/goveralls -coverprofile=hamms.coverprofile -service=travis-ci"
 deploy:
     - provider: releases
       api_key:
