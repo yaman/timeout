@@ -1,10 +1,11 @@
-package main
+package tcp
 
 import (
 	"fmt"
 	"net"
 	"time"
 
+	"github.com/abdulkadiryaman/go-hamms/hamms"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -12,7 +13,7 @@ import (
 var _ = Describe("Hamms", func() {
 
 	Describe("Given hamms created with port :5000", func() {
-		hamms := Hamms{Port: ":5000"}
+		hamms := hamms.Hamms{Port: ":5000"}
 
 		Context("When hamms.Listen() called", func() {
 			listener := hamms.Listen()
@@ -92,7 +93,7 @@ var _ = Describe("Hamms", func() {
 
 	})
 
-	Describe("Given connected to :5506 port", func() {
+	XDescribe("Given connected to :5506 port", func() {
 		go ListenAndAnswerEvery5Seconds()
 		time.Sleep(3 * time.Second)
 
@@ -114,7 +115,7 @@ var _ = Describe("Hamms", func() {
 
 	})
 
-	Describe("Given connected to :5507 port", func() {
+	XDescribe("Given connected to :5507 port", func() {
 		go ListenAndAnswerEvery30Seconds()
 		time.Sleep(2 * time.Second)
 

@@ -14,7 +14,7 @@ DONE - 5507 - The client accepts the request, and sends back one byte every 30 s
 
 DONE - 5508 - Send a request to localhost:5508/sleep/<float> to sleep for float number of seconds. If no value is provided, sleep for 5 seconds.
 
-5509 - Send a request to localhost:5509/status/<int> to return a response with HTTP status code status. If no value is provided, return status code 200.
+DONE - 5008 - Send a request to localhost:5509/status/<int> to return a response with HTTP status code status. If no value is provided, return status code 200.
 
 5510 - The server will send a response with a Content-Length: 3 header, however the response is actually 1 MB in size. This can break clients that reuse a socket.
 

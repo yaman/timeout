@@ -1,13 +1,15 @@
-package main
+package tcp
 
 import (
 	"fmt"
 	"net"
 	"time"
+
+	"github.com/abdulkadiryaman/go-hamms/hamms"
 )
 
 func ListenAndDoNotAnswer() {
-	hamms := Hamms{Port: ":5501"}
+	hamms := hamms.Hamms{Port: ":5501"}
 	listener := hamms.Listen()
 
 	for {
@@ -18,7 +20,7 @@ func ListenAndDoNotAnswer() {
 }
 
 func ListenAndAnswerWithEmptyString() {
-	hamms := Hamms{Port: ":5502"}
+	hamms := hamms.Hamms{Port: ":5502"}
 	ln := hamms.Listen()
 
 	for {
@@ -31,7 +33,7 @@ func ListenAndAnswerWithEmptyString() {
 }
 
 func ListenAndAnswerWithMalformedStringImmediately() {
-	hamms := Hamms{Port: ":5504"}
+	hamms := hamms.Hamms{Port: ":5504"}
 	ln := hamms.Listen()
 
 	for {
@@ -44,7 +46,7 @@ func ListenAndAnswerWithMalformedStringImmediately() {
 }
 
 func ListenAndAnswerWithEmptyStringAfterClientSendsData() {
-	hamms := Hamms{Port: ":5503"}
+	hamms := hamms.Hamms{Port: ":5503"}
 	ln := hamms.Listen()
 
 	for {
@@ -62,7 +64,7 @@ func ListenAndAnswerWithEmptyStringAfterClientSendsData() {
 }
 
 func ListenAndAnswerWithMalformedStringAfterClientSendsData() {
-	hamms := Hamms{Port: ":5505"}
+	hamms := hamms.Hamms{Port: ":5505"}
 	ln := hamms.Listen()
 
 	for {
@@ -80,7 +82,7 @@ func ListenAndAnswerWithMalformedStringAfterClientSendsData() {
 }
 
 func ListenAndAnswerEvery5Seconds() {
-	hamms := Hamms{Port: ":5506"}
+	hamms := hamms.Hamms{Port: ":5506"}
 
 	ln := hamms.Listen()
 	conn, _ := ln.Accept()
@@ -96,7 +98,7 @@ func ListenAndAnswerEvery5Seconds() {
 }
 
 func ListenAndAnswerEvery30Seconds() {
-	hamms := Hamms{Port: ":5507"}
+	hamms := hamms.Hamms{Port: ":5507"}
 
 	ln := hamms.Listen()
 	conn, _ := ln.Accept()

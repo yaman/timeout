@@ -1,8 +1,10 @@
-package main
+package http
 
 import (
+	"errors"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -21,13 +23,12 @@ func StartRouter() {
 
 func router(w http.ResponseWriter, r *http.Request) {
 	rawQuery := r.URL.RawQuery
-	queryString, _, _ := SplitRawQuery(rawQuery)
-	//queryValue := queryFields[1]
+	queryString, queryValue, _ := SplitRawQuery(rawQuery)
 	switch {
 	case queryString == "sleep":
-		//sleepFor(w, r, queryValue)
+		sleepFor(w, r, queryValue)
 	case queryString == "status":
-		//respondWithStatus(w, r, queryValue)
+		respondWithStatus(w, r, queryValue)
 	}
 }
 
@@ -50,6 +51,11 @@ func sleepFor(w http.ResponseWriter, request *http.Request, queryValue string) {
 }
 
 func SplitRawQuery(rawQuery string) (string, string, error) {
+	query := strings.Split(rawQuery, "=")
+	switch len(query) {
+	case 2:
+		return query[0], query[1], nil
+	}
 
-	return "sleep", "", nil
+	return "", "", errors.New("Malformed rawquery: " + rawQuery)
 }
