@@ -25,6 +25,3 @@ deploy:
       app: go-hamms
       on:
         repo: abdulkadiryaman/go-hamms
-      
-after_deploy:
-    - ./bin/go-hamms -port $PORT
