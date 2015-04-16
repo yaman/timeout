@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"time"
 
@@ -10,6 +11,8 @@ import (
 
 func main() {
 	fmt.Println("Running Go hamms...")
+	port := flag.String("port", "80", "port number")
+	flag.Parse()
 
 	go tcp.ListenAndDoNotAnswer()
 	go tcp.ListenAndAnswerWithEmptyString()
@@ -18,7 +21,7 @@ func main() {
 	go tcp.ListenAndAnswerWithMalformedStringAfterClientSendsData()
 	go tcp.ListenAndAnswerEvery5Seconds()
 	go tcp.ListenAndAnswerEvery30Seconds()
-	go http.StartRouter()
+	go http.StartRouter(*port)
 
 	for {
 		time.Sleep(10 * time.Second)

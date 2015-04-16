@@ -11,7 +11,7 @@ import (
 var _ = Describe("Hamms", func() {
 
 	Describe("Router", func() {
-		go StartRouter()
+		go StartRouter("5508")
 		time.Sleep(1 * time.Second)
 
 		Describe("SleepFor", func() {

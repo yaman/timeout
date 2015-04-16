@@ -8,17 +8,16 @@ import (
 	"time"
 )
 
-const listenAddress = ":5508"
 const sleepPath = "/sleep/{SleepFor:[0-9]+}"
 const sleepForParameterName = "SleepFor"
 const respondWithStatusPath = "/status/{statuscode:[0-9]+}"
 const respondWithDefaultStatusPath = "/status"
 const statusCodeParameterName = "statuscode"
 
-func StartRouter() {
+func StartRouter(port string) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", router)
-	http.ListenAndServe(listenAddress, mux)
+	http.ListenAndServe(":"+port, mux)
 }
 
 func router(w http.ResponseWriter, r *http.Request) {
