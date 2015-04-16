@@ -1,1 +1,1 @@
-web: go-hamms -port=$PORT
+web: go run main.go -port=$PORT
