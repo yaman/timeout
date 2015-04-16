@@ -1,4 +1,4 @@
-package hamms
+package main
 
 import (
 	"fmt"
