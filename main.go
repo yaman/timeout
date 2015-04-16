@@ -1,8 +1,8 @@
 package main
 
 import (
-	"flag"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/abdulkadiryaman/go-hamms/http"
@@ -11,8 +11,7 @@ import (
 
 func main() {
 	fmt.Println("Running Go hamms...")
-	port := flag.String("port", "80", "port number")
-	flag.Parse()
+	port := os.Getenv("PORT")
 
 	go tcp.ListenAndDoNotAnswer()
 	go tcp.ListenAndAnswerWithEmptyString()
@@ -21,7 +20,7 @@ func main() {
 	go tcp.ListenAndAnswerWithMalformedStringAfterClientSendsData()
 	go tcp.ListenAndAnswerEvery5Seconds()
 	go tcp.ListenAndAnswerEvery30Seconds()
-	go http.StartRouter(*port)
+	go http.StartRouter(port)
 
 	for {
 		time.Sleep(10 * time.Second)
