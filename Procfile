@@ -1,1 +1,1 @@
-web: go-hamms -port $PORT
+web: go-hamms -port=$PORT
