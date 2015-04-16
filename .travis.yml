@@ -10,7 +10,7 @@ before_install:
 script:
 - "$HOME/gopath/bin/ginkgo -r -cover"
 - "cat tcp/tcp.coverprofile > hamms.coverprofile"
-- "cat http/http.coverprofile >> hamms.coverprofile"
+- "cat http/http.coverprofile | grep -v \"mode: set\" >> hamms.coverprofile"
 - "$HOME/gopath/bin/goveralls -coverprofile=hamms.coverprofile -service=travis-ci"
 deploy:
     - provider: releases
