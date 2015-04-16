@@ -12,6 +12,7 @@ script:
 - "cat tcp/tcp.coverprofile > hamms.coverprofile"
 - "cat http/http.coverprofile | grep -v \"mode: atomic\" >> hamms.coverprofile"
 - "$HOME/gopath/bin/goveralls -coverprofile=hamms.coverprofile -service=travis-ci"
+- "rm hamms.coverprofile http/http.coverprofile tcp/tcp.coverprofile"
 deploy:
     - provider: releases
       api_key:
