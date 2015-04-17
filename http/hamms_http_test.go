@@ -67,6 +67,25 @@ var _ = Describe("Hamms", func() {
 				})
 			})
 		})
+
+		Describe("FakeTheSize", func() {
+			Context("Http request sent to /anyresource?fakethesize=3&for=1024", func() {
+				It("Should respond with the status code 200", func() {
+					resp, _ := http.Get("http://localhost:5508/anyresource?fakethesize=3&for=1024")
+					defer resp.Body.Close()
+
+					Expect(resp.StatusCode).Should(Equal(200))
+				})
+
+				It("Should respond with content-lenght=3", func() {
+					resp, _ := http.Get("http://localhost:5508/anyresource?fakethesize=3&for=1024")
+					defer resp.Body.Close()
+
+					Expect(resp.Header.Get("Content-Length")).Should(Equal("3"))
+				})
+
+			})
+		})
 	})
 
 	Describe("SplitRawQuery", func() {
@@ -99,6 +118,42 @@ var _ = Describe("Hamms", func() {
 			_, _, actualErr := SplitRawQuery(rawQuery)
 
 			Expect(actualErr).ShouldNot(Equal(nil))
+		})
+
+	})
+
+	Describe("SplitRawQueryIntoMap", func() {
+		It("Should return a map with size 2", func() {
+			rawQuery := "fakethesize=3&for=1024"
+			actual, _ := SplitRawQueryIntoMap(rawQuery)
+
+			Expect(len(actual)).Should(Equal(2))
+		})
+		It("Should return a map which contains fakethesize and for", func() {
+			rawQuery := "fakethesize=3&for=1024"
+			actual, _ := SplitRawQueryIntoMap(rawQuery)
+			_, fakeExists := actual["fakethesize"]
+			_, forExists := actual["for"]
+			Expect(fakeExists).Should(Equal(true))
+			Expect(forExists).Should(Equal(true))
+		})
+		It("Should return a map with fakethesize 3 and for 1024", func() {
+			rawQuery := "fakethesize=3&for=1024"
+			actual, _ := SplitRawQueryIntoMap(rawQuery)
+			fakethesizeValue, _ := actual["fakethesize"]
+			forValue, _ := actual["for"]
+			Expect(fakethesizeValue).Should(Equal("3"))
+			Expect(forValue).Should(Equal("1024"))
+		})
+		It("Should return error if the format is not right for one query parameter", func() {
+			rawQuery := "fakethesize1024"
+			_, err := SplitRawQueryIntoMap(rawQuery)
+			Expect(err).ShouldNot(Equal(nil))
+		})
+		It("Should return error if the format is not right for multiple query parameters", func() {
+			rawQuery := "fakethesize1024&asdasdasda00123"
+			_, err := SplitRawQueryIntoMap(rawQuery)
+			Expect(err).ShouldNot(Equal(nil))
 		})
 
 	})

@@ -24,12 +24,29 @@ func StartRouter(port string) {
 
 func router(w http.ResponseWriter, r *http.Request) {
 	rawQuery := r.URL.RawQuery
-	queryString, queryValue, _ := SplitRawQuery(rawQuery)
+	var queryString, queryValue string
+	var queryMap map[string]string
+	var fakeSize string
+	var actualSize string
+	if strings.Contains(rawQuery, "&") {
+		queryMap, _ = SplitRawQueryIntoMap(rawQuery)
+		var found bool
+		fakeSize, found = queryMap["fakethesize"]
+		if found {
+			actualSize = queryMap["for"]
+			queryString = "fakethesize"
+		}
+	} else {
+		queryString, queryValue, _ = SplitRawQuery(rawQuery)
+	}
+
 	switch {
 	case queryString == "sleep":
 		sleepFor(w, r, queryValue)
 	case queryString == "status":
 		respondWithStatus(w, r, queryValue)
+	case queryString == "fakethesize":
+		respondWithFakeSize(w, r, fakeSize, actualSize)
 	}
 }
 
@@ -39,16 +56,33 @@ func respondWithStatus(w http.ResponseWriter, r *http.Request, queryValue string
 	if err != nil {
 		w.WriteHeader(200)
 	} else {
-
 		w.WriteHeader(status)
 	}
 	w.Write([]byte("done!"))
+}
+
+func respondWithFakeSize(w http.ResponseWriter, r *http.Request, fakeSize string, actualSize string) {
+	w.Header().Set("Content-Length", fakeSize)
 }
 
 func sleepFor(w http.ResponseWriter, request *http.Request, queryValue string) {
 	sleepFor, _ := strconv.Atoi(queryValue)
 	time.Sleep(time.Duration(sleepFor) * time.Second)
 	w.Write([]byte("done!"))
+}
+
+func SplitRawQueryIntoMap(rawQuery string) (map[string]string, error) {
+	query := strings.Split(rawQuery, "&")
+
+	queryMap := make(map[string]string)
+	for _, element := range query {
+		queryString, queryValue, err := SplitRawQuery(element)
+		if err != nil {
+			return nil, err
+		}
+		queryMap[queryString] = queryValue
+	}
+	return queryMap, nil
 }
 
 func SplitRawQuery(rawQuery string) (string, string, error) {
