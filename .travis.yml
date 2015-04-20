@@ -9,10 +9,10 @@ before_install:
   fi
 script:
 - "$HOME/gopath/bin/ginkgo -r -cover"
-- "cat tcp/tcp.coverprofile > hamms.coverprofile"
-- "cat http/http.coverprofile | grep -v \"mode: atomic\" >> hamms.coverprofile"
-- "$HOME/gopath/bin/goveralls -coverprofile=hamms.coverprofile -service=travis-ci"
-- "rm hamms.coverprofile http/http.coverprofile tcp/tcp.coverprofile"
+- "cat tcp/tcp.coverprofile > timeout.coverprofile"
+- "cat http/http.coverprofile | grep -v \"mode: atomic\" >> timeout.coverprofile"
+- "$HOME/gopath/bin/goveralls -coverprofile=timeout.coverprofile -service=travis-ci"
+- "rm timeout.coverprofile http/http.coverprofile tcp/tcp.coverprofile"
 deploy:
     - provider: releases
       api_key:
