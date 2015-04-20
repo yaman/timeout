@@ -1,4 +1,4 @@
-package http
+package tcp
 
 import (
 	. "github.com/onsi/ginkgo"
@@ -9,5 +9,5 @@ import (
 
 func TestGoHamms(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "GoHamms Http Test Suite")
+	RunSpecs(t, "Timeout Tcp Test Suite")
 }

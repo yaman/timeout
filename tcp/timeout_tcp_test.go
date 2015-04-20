@@ -5,22 +5,22 @@ import (
 	"net"
 	"time"
 
-	"github.com/abdulkadiryaman/go-hamms/hamms"
+	"github.com/abdulkadiryaman/timeout/timeout"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("Hamms", func() {
+var _ = Describe("Timeout", func() {
 
-	Describe("Given hamms created with port :5000", func() {
-		hamms := hamms.Hamms{Port: ":5000"}
+	Describe("Given timeout created with port :5000", func() {
+		timeout := timeout.Timeout{Port: ":5000"}
 
-		Context("When hamms.Listen() called", func() {
-			listener := hamms.Listen()
+		Context("When timeout.Listen() called", func() {
+			listener := timeout.Listen()
 			It("Listener Should not be null", func() {
 				Expect(listener).ShouldNot(Equal(nil))
 			})
-			hamms.Close()
+			timeout.Close()
 		})
 
 	})

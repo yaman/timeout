@@ -16,7 +16,7 @@ const respondWithDefaultStatusPath = "/status"
 const statusCodeParameterName = "statuscode"
 
 func StartRouter(port string) {
-	fmt.Println("Starting Hamms http with port:", port)
+	fmt.Println("Starting Timeout http with port:", port)
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", router)
 	http.ListenAndServe(":"+port, mux)

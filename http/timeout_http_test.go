@@ -8,7 +8,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("Hamms", func() {
+var _ = Describe("Timeout", func() {
 
 	Describe("Router", func() {
 		go StartRouter("5508")

@@ -5,12 +5,12 @@ import (
 	"net"
 	"time"
 
-	"github.com/abdulkadiryaman/go-hamms/hamms"
+	"github.com/abdulkadiryaman/timeout/timeout"
 )
 
 func ListenAndDoNotAnswer() {
-	hamms := hamms.Hamms{Port: ":5501"}
-	listener := hamms.Listen()
+	timeout := timeout.Timeout{Port: ":5501"}
+	listener := timeout.Listen()
 
 	for {
 		conn, _ := listener.Accept()
@@ -20,8 +20,8 @@ func ListenAndDoNotAnswer() {
 }
 
 func ListenAndAnswerWithEmptyString() {
-	hamms := hamms.Hamms{Port: ":5502"}
-	ln := hamms.Listen()
+	timeout := timeout.Timeout{Port: ":5502"}
+	ln := timeout.Listen()
 
 	for {
 		conn, _ := ln.Accept()
@@ -33,8 +33,8 @@ func ListenAndAnswerWithEmptyString() {
 }
 
 func ListenAndAnswerWithMalformedStringImmediately() {
-	hamms := hamms.Hamms{Port: ":5504"}
-	ln := hamms.Listen()
+	timeout := timeout.Timeout{Port: ":5504"}
+	ln := timeout.Listen()
 
 	for {
 		conn, _ := ln.Accept()
@@ -46,8 +46,8 @@ func ListenAndAnswerWithMalformedStringImmediately() {
 }
 
 func ListenAndAnswerWithEmptyStringAfterClientSendsData() {
-	hamms := hamms.Hamms{Port: ":5503"}
-	ln := hamms.Listen()
+	timeout := timeout.Timeout{Port: ":5503"}
+	ln := timeout.Listen()
 
 	for {
 		conn, _ := ln.Accept()
@@ -64,8 +64,8 @@ func ListenAndAnswerWithEmptyStringAfterClientSendsData() {
 }
 
 func ListenAndAnswerWithMalformedStringAfterClientSendsData() {
-	hamms := hamms.Hamms{Port: ":5505"}
-	ln := hamms.Listen()
+	timeout := timeout.Timeout{Port: ":5505"}
+	ln := timeout.Listen()
 
 	for {
 		conn, _ := ln.Accept()
@@ -82,9 +82,9 @@ func ListenAndAnswerWithMalformedStringAfterClientSendsData() {
 }
 
 func ListenAndAnswerEvery5Seconds() {
-	hamms := hamms.Hamms{Port: ":5506"}
+	timeout := timeout.Timeout{Port: ":5506"}
 
-	ln := hamms.Listen()
+	ln := timeout.Listen()
 	conn, _ := ln.Accept()
 	defer conn.Close()
 
@@ -98,9 +98,9 @@ func ListenAndAnswerEvery5Seconds() {
 }
 
 func ListenAndAnswerEvery30Seconds() {
-	hamms := hamms.Hamms{Port: ":5507"}
+	timeout := timeout.Timeout{Port: ":5507"}
 
-	ln := hamms.Listen()
+	ln := timeout.Listen()
 	conn, _ := ln.Accept()
 	defer conn.Close()
 
