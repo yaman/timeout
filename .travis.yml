@@ -25,4 +25,4 @@ deploy:
         secure: fuSD2IWK1n5XzhpcteCr+f53mkK+olVJF75myVoVAn1fVvm2Su+0jAIODB/Dzzmp8pF6ReCBIiweGXebunLcBSclU7YF0qDJH7hamAC9IxYH6bc7GzByskiFKFm1+dHK6r+4/kh31Lo6GwaY+KgQE0GkuOwH40c2+zuQUEmZyHM=
       app: gotimeout
       on:
-        repo: abdulkadiryaman/timeout
+        repo: yaman/timeout

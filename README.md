@@ -3,6 +3,6 @@ timeout
 
 
 
-[![Build Status](https://travis-ci.org/abdulkadiryaman/timeout.svg?branch=master)](https://travis-ci.org/abdulkadiryaman/timeout) [![Coverage Status](https://coveralls.io/repos/abdulkadiryaman/timeout/badge.svg?branch=master)](https://coveralls.io/r/abdulkadiryaman/timeout?branch=master)
+[![Build Status](https://travis-ci.org/yaman/timeout.svg?branch=master)](https://travis-ci.org/yaman/timeout) [![Coverage Status](https://coveralls.io/repos/yaman/timeout/badge.svg?branch=master)](https://coveralls.io/r/yaman/timeout?branch=master)
 
 
