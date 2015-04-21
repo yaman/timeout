@@ -6,7 +6,5 @@ ENV GOPATH /tmp/gopath
 
 RUN go get github.com/yaman/timeout
 
-EXPOSE $PORT
-
 ENTRYPOINT ${GOPATH}/bin/timeout -proto=$PROTO -port=$PORT
 
