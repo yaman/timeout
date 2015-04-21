@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/abdulkadiryaman/timeout/http"
-	"github.com/abdulkadiryaman/timeout/tcp"
+	"github.com/yaman/timeout/http"
+	"github.com/yaman/timeout/tcp"
 )
 
 func main() {
