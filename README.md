@@ -16,15 +16,13 @@ Briefly speaking, you can run a tcp/http stub server in seconds.
 
 -------------------------
 #### Install
-
-go get github.com/yaman/timeout
+`go get github.com/yaman/timeout`
 
 -------------------------
 #### Run
+`$GOPATH/bin/timeout -proto=http -port=8080`
 
-$GOPATH/bin/timeout -proto=http -port=8080
-
-$GOPATH/bin/timeout -proto=tcp
+`$GOPATH/bin/timeout -proto=tcp`
 
 -------------------------
 #### Directly use it from Heroku
@@ -33,5 +31,13 @@ Only Http timeout is available through heroku for now. Just change your external
 `https://gotimeout.herokuapp.com/yourpreciousresource?sleep=1`
 
 -------------------------
+#### Run with Docker prebuild image
+You just need to run following command provided that Docker is up and running on your local machine;
 
+###### for http and exposing port 5000
 
+`sudo docker run -p 5000:5000 -e PROTO=http -e PORT=5000 yaman/timeout`
+
+###### for tcp
+
+`sudo docker run -p 5500-5600:5500-5600 -e PROTO=tcp yaman/timeout`
