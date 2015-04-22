@@ -67,7 +67,7 @@ func respondWithFakeSize(w http.ResponseWriter, r *http.Request, fakeSize string
 
 func sleepFor(w http.ResponseWriter, request *http.Request, queryValue string) {
 	sleepFor, _ := strconv.Atoi(queryValue)
-	time.Sleep(time.Duration(sleepFor) * time.Second)
+	time.Sleep(time.Duration(sleepFor) * time.Millisecond)
 	w.Write([]byte("done!"))
 }
 

@@ -15,10 +15,10 @@ var _ = Describe("Timeout", func() {
 		time.Sleep(1 * time.Second)
 
 		Describe("SleepFor", func() {
-			Context("Http request sent to /anyresourcepath?sleep=5", func() {
+			Context("Http request sent to /anyresourcepath?sleep=5000", func() {
 				It("Response should not be nil", func() {
 
-					resp, err := http.Get("http://localhost:5508/anyresourcepath?sleep=5")
+					resp, err := http.Get("http://localhost:5508/anyresourcepath?sleep=5000")
 					defer resp.Body.Close()
 					Expect(err).Should(BeNil())
 					Expect(resp).ShouldNot(BeNil())
@@ -26,7 +26,7 @@ var _ = Describe("Timeout", func() {
 				})
 				It("Should respond in 5 seconds", func() {
 					start := time.Now()
-					resp, _ := http.Get("http://localhost:5508/anyresourcepath?sleep=5")
+					resp, _ := http.Get("http://localhost:5508/anyresourcepath?sleep=5000")
 					defer resp.Body.Close()
 					elapsed := time.Since(start).Seconds()
 
