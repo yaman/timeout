@@ -1,4 +1,6 @@
-## Timeout [![Build Status](https://travis-ci.org/yaman/timeout.svg?branch=master)](https://travis-ci.org/yaman/timeout) [![Coverage Status](https://coveralls.io/repos/yaman/timeout/badge.svg?branch=master)](https://coveralls.io/r/yaman/timeout?branch=master) [![Heroku](https://heroku-badge.herokuapp.com/?app=gotimeout)](https://gotimeout.herokuapp.com/anyresource?sleep=1)
+![Timeout](http://i12.photobucket.com/albums/a215/abdulkadiryaman/timeout_zpsxd3mcsty.png)
+
+[![Build Status](https://travis-ci.org/yaman/timeout.svg?branch=master)](https://travis-ci.org/yaman/timeout) [![Coverage Status](https://coveralls.io/repos/yaman/timeout/badge.svg?branch=master)](https://coveralls.io/r/yaman/timeout?branch=master) [![Heroku](https://heroku-badge.herokuapp.com/?app=gotimeout)](https://gotimeout.herokuapp.com/anyresource?sleep=1)
 
 timeout is written to satisfy `tcp` and `http` based timeout testing needs. It works as a stub server in replacement of your application's external tcp/http dependency.
 
