@@ -1,1 +1,1 @@
-web:  $GOPATH/bin/timeout
+web:  bin/timeout
