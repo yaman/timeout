@@ -1,1 +1,1 @@
-web:  go-hamms
+web:  timeout
