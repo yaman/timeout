@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Timeout by yaman</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Timeout</h1>
+      <h2 class="project-tagline">A very simple timeout stub for http and tcp</h2>
+      <a href="https://github.com/yaman/timeout" class="btn">View on GitHub</a>
+      <a href="https://github.com/yaman/timeout/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/yaman/timeout/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p><img src="http://i12.photobucket.com/albums/a215/abdulkadiryaman/timeout_zpsxd3mcsty.png" alt="Timeout"></p>
+
+<p><a href="https://travis-ci.org/yaman/timeout"><img src="https://travis-ci.org/yaman/timeout.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/r/yaman/timeout?branch=master"><img src="https://coveralls.io/repos/yaman/timeout/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://gotimeout.herokuapp.com/anyresource?sleep=1"><img src="https://heroku-badge.herokuapp.com/?app=gotimeout" alt="Heroku"></a></p>
+
+<p>timeout is written to satisfy <code>tcp</code> and <code>http</code> based timeout testing needs. It works as a stub server in replacement of your application's external tcp/http dependency.</p>
+
+<p>Briefly speaking, you can run a tcp/http stub server in seconds.</p>
+
+<hr>
+
+<h4>
+<a id="http" class="anchor" href="#http" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP</h4>
+
+<ul>
+<li>
+<p>Respond with status <code>http:yourhost/yourresource?status=x</code> where x is an integer number between 200 and 599: </p>
+
+<ul>
+<li>
+<code>https://gotimeout.herokuapp.com/yourpreciousresource?status=201</code> </li>
+<li>
+<code>https://gotimeout.herokuapp.com/yourpreciousresource?status=302</code> </li>
+<li>
+<code>https://gotimeout.herokuapp.com/yourpreciousresource?status=401</code> </li>
+</ul>
+</li>
+<li>
+<p>Sleep before responding <code>http:yourhost/yourresource?sleep=x</code> x is in milliseconds:</p>
+
+<ul>
+<li>
+<code>https://gotimeout.herokuapp.com/yourpreciousresource?sleep=1000</code> --&gt; wait for 1 second before responding</li>
+<li>
+<code>https://gotimeout.herokuapp.com/yourpreciousresource?sleep=5000</code> --&gt; wait for 5 second before responding</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="tcp" class="anchor" href="#tcp" aria-hidden="true"><span class="octicon octicon-link"></span></a>TCP</h4>
+
+<ul>
+<li>Listen but do not respond, from port <code>:5501</code>
+</li>
+<li>Listen and respond with empty string, from port <code>:5502</code>
+</li>
+<li>Listen and respond with empty string after client sends data, <code>:5503</code>
+</li>
+<li>Listen and respond with malformed string, from port <code>:5504</code>
+</li>
+<li>Listen and respond with malformed string after client sends data, from port <code>:5505</code>
+</li>
+<li>Listen and respond with empty string every 5 seconds, from port <code>:5506</code>
+</li>
+<li>Listen and respond with empty string every 30 seconds, from port <code>:5507</code>
+</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h4>
+
+<p><code>go get github.com/yaman/timeout</code></p>
+
+<hr>
+
+<h4>
+<a id="run" class="anchor" href="#run" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run</h4>
+
+<p><code>$GOPATH/bin/timeout -proto=http -port=8080</code></p>
+
+<p><code>$GOPATH/bin/timeout -proto=tcp</code></p>
+
+<hr>
+
+<h4>
+<a id="directly-use-it-from-heroku" class="anchor" href="#directly-use-it-from-heroku" aria-hidden="true"><span class="octicon octicon-link"></span></a>Directly use it from Heroku</h4>
+
+<p>Only Http timeout is available through heroku for now. Just change your external url to ;</p>
+
+<p><code>https://gotimeout.herokuapp.com/yourpreciousresource?sleep=1</code></p>
+
+<hr>
+
+<h4>
+<a id="run-with-docker-prebuild-image" class="anchor" href="#run-with-docker-prebuild-image" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run with Docker prebuild image</h4>
+
+<p>You just need to run following command provided that Docker is up and running on your local machine;</p>
+
+<h6>
+<a id="for-http-and-exposing-port-5000" class="anchor" href="#for-http-and-exposing-port-5000" aria-hidden="true"><span class="octicon octicon-link"></span></a>for http and exposing port 5000</h6>
+
+<p><code>sudo docker run -p 5000:5000 -e PROTO=http -e PORT=5000 yaman/timeout</code></p>
+
+<h6>
+<a id="for-tcp" class="anchor" href="#for-tcp" aria-hidden="true"><span class="octicon octicon-link"></span></a>for tcp</h6>
+
+<p><code>sudo docker run -p 5500-5600:5500-5600 -e PROTO=tcp yaman/timeout</code></p>
+
+<hr>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/yaman/timeout">Timeout</a> is maintained by <a href="https://github.com/yaman">yaman</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
