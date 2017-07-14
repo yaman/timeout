@@ -5,30 +5,32 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/yaman/timeout/http"
 	"github.com/yaman/timeout/tcp"
 )
 
 func main() {
-	port := os.Getenv("PORT")
 	portParameter := flag.String("port", "8080", "port number to run http from")
-	proto := flag.String("proto", "http", "protocol to run timeouts")
-
+	protoParameter := flag.String("proto", "http", "protocol to run timeouts")
 	flag.Parse()
 
+	port := os.Getenv("PORT")
+	if len(port) == 0 && len(*portParameter) > 0 {
+		port = *portParameter
+	}
+	proto := os.Getenv("PROTO")
+	if len(proto) == 0 && len(*protoParameter) > 0 {
+		proto = *protoParameter
+	}
+
 	switch {
-	case strings.Contains(*proto, "http"):
+	case strings.Contains(proto, "http"):
 
 		fmt.Println("Running Go HTTP Timeout...")
-		if len(port) > 0 {
-			go http.StartRouter(port)
-		} else if portParameter != nil {
-			go http.StartRouter(*portParameter)
-		}
+		go http.StartRouter(port)
 
-	case strings.Contains(*proto, "tcp"):
+	case strings.Contains(proto, "tcp"):
 
 		fmt.Println("Running Go TCP Timeout...")
 		go tcp.ListenAndDoNotAnswer()
