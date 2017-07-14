@@ -42,7 +42,5 @@ func main() {
 		go tcp.ListenAndAnswerEvery30Seconds()
 	}
 
-	for {
-		time.Sleep(10 * time.Second)
-	}
+	select {}
 }
