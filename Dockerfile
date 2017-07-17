@@ -1,10 +1,10 @@
-FROM golang:1.4.2
+FROM golang:1.8
 MAINTAINER Abdulkadir Yaman <abdulkadiryaman@gmail.com>
 
-RUN mkdir /tmp/gopath
-ENV GOPATH /tmp/gopath
+WORKDIR /go/src/app
+COPY . .
 
-RUN go get github.com/yaman/timeout
+RUN go-wrapper download
+RUN go-wrapper install
 
-ENTRYPOINT ${GOPATH}/bin/timeout -proto=$PROTO -port=$PORT
-
+CMD ["go-wrapper", "run"]
