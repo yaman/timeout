@@ -5,7 +5,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/yaman/timeout/timeout"
+	"yaman/timeout/timeout"
 )
 
 func ListenAndDoNotAnswer() {

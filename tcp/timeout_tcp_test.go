@@ -5,9 +5,10 @@ import (
 	"net"
 	"time"
 
+	"yaman/timeout/timeout"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/yaman/timeout/timeout"
 )
 
 var _ = Describe("Timeout", func() {

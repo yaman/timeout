@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/yaman/timeout/http"
-	"github.com/yaman/timeout/tcp"
+	"yaman/timeout/http"
+	"yaman/timeout/tcp"
 )
 
 func main() {
